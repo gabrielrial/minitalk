@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   client.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: grial <grial@student.42berlin.de>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/18 17:09:00 by grial             #+#    #+#             */
+/*   Updated: 2024/07/18 17:10:08 by grial            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/minitalk.h"
 
 void	handler(int signum)
@@ -8,9 +20,9 @@ void	handler(int signum)
 
 void	send_signal(pid_t pid, char *str)
 {
-	char c;
-	int i;
-	int bits;
+	char	c;
+	int		i;
+	int		bits;
 
 	i = 0;
 	while (1)
@@ -34,7 +46,7 @@ void	send_signal(pid_t pid, char *str)
 
 int	main(int argc, char **argv)
 {
-	pid_t pid_server;
+	pid_t	pid_server;
 
 	signal(SIGUSR1, &handler);
 	if (argc != 3)

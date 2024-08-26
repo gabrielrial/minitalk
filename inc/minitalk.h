@@ -1,5 +1,17 @@
-#ifndef	FT_MINITALK_H
-# define	FT_MINITALK_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minitalk.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: grial <grial@student.42berlin.de>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/18 17:32:52 by grial             #+#    #+#             */
+/*   Updated: 2024/07/18 17:36:01 by grial            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef MINITALK_H
+# define MINITALK_H
 
 # include "../libft/libft.h"
 # include <signal.h>

@@ -7,8 +7,8 @@ SRC_BONUS = src/bonus/
 SRCSERVER = $(SRC)server.c
 SRCCLIENT = $(SRC)client.c
 
-BNSSERVER = $(SRC_BONUS) server.c
-BNSCLIENT = $(SRC_BONUS) client.c
+BNSSERVER = $(SRC_BONUS)server_bonus.c
+BNSCLIENT = $(SRC_BONUS)client_bonus.c
 
 LIB_DIR = libft
 LIBFT = -L$(LIB_DIR) -lft

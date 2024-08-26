@@ -1,51 +1,52 @@
-#include <string.h>
-#include <stdlib.h>
-#include <signal.h>
-#include <unistd.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   client_bonus.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: grial <grial@student.42berlin.de>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/18 17:21:09 by grial             #+#    #+#             */
+/*   Updated: 2024/07/18 17:59:01 by grial            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdio.h>
+#include "../../inc/minitalk.h"
 
-void handler(int signum)
+void	handler(int signum)
 {
-	if(signum == SIGUSR1)
-		write(1, "Message received successfully\n",30);
-}
-
-void send_signal(pid_t pid, char *str, int size)
-{
-	char c;
-	int i;
-	int bits;
-	int size_sent;
-
-	i = 0;
-	while (str[i])
+	if (signum == SIGUSR1)
 	{
-		size_sent = i * 4;
-		printf("\rSending message: %i/%i bytes\n", size_sent, size);
-		fflush(stdout);
-		bits = 7;
-		c = str[i];
-		while (bits >= 0)
-		{
-			if (c >> bits & 1)
-				kill(pid, SIGUSR2);
-			else
-				kill(pid, SIGUSR1);
-			usleep(500);
-			bits--;
-		}
-		if (!str[i])
-			break ;
-
+		write(1, "Message received successfully\n", 30);
+		exit (0);
 	}
 }
 
-int main(int argc, char **argv)
+void	send_signal(pid_t pid, char c)
 {
-	int index;
-	int size;
-	pid_t pid_server;
+	int		i;
+	int		bits;
 
+	i = 0;
+	bits = 7;
+	while (bits >= 0)
+	{
+		if (c >> bits & 1)
+			kill(pid, SIGUSR2);
+		else
+			kill(pid, SIGUSR1);
+		usleep(400);
+		bits--;
+	}
+	i++;
+}
+
+int	main(int argc, char **argv)
+{
+	pid_t	pid_server;
+	int		i;
+
+	i = 0;
 	signal(SIGUSR1, &handler);
 	if (argc != 3)
 	{
@@ -53,9 +54,13 @@ int main(int argc, char **argv)
 		return (1);
 	}
 	pid_server = atoi(argv[1]);
-	size = strlen(argv[2]) * 4;
-	send_signal(pid_server, argv[2], size);
-	while(1)
+	while (argv[2])
+	{
+		send_signal(pid_server, argv[2][i]);
+		i++;
+	}
+	send_signal(pid_server, '\0');
+	while (1)
 		pause();
 	return (0);
 }
